@@ -29,17 +29,17 @@ spam-email-classifier/
 pip install -r requirements.txt
 
 # Run the web app (trains model on startup)
-python app.py
+python3 app.py
 ```
 
-Open **http://127.0.0.1:8000** in your browser.
+Open **http://127.0.0.1:5050** in your browser.
 
 ## CLI Training
 
 To train the model without starting the web server:
 
 ```bash
-python spam_classifier.py
+python3 spam_classifier.py
 ```
 
 ## API

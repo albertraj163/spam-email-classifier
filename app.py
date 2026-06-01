@@ -35,6 +35,7 @@ def stats():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Open http://127.0.0.1:{port} in your browser")
+    port = int(os.environ.get("PORT", 5050))
+    url = f"http://127.0.0.1:{port}"
+    print(f"\n  Spam Email Classifier running at {url}\n")
     app.run(host="127.0.0.1", port=port, debug=False)
