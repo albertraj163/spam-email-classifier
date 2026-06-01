@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spam Email Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Spam Email Classifier</h1>
+            <p class="subtitle">TF-IDF + Naive Bayes · scikit-learn</p>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stat">
+            <span class="stat-value">{{ stats.accuracy }}%</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ stats.samples }}</span>
+            <span class="stat-label">Samples</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ stats.spam_count }}</span>
+            <span class="stat-label">Spam</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{{ stats.ham_count }}</span>
+            <span class="stat-label">Ham</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="card input-card">
+        <div class="card-header">
+          <h2>Analyze Email</h2>
+          <p>Paste email subject and body below to check if it's spam or legitimate.</p>
+        </div>
+
+        <form id="classify-form" class="classify-form">
+          <label for="email-text" class="sr-only">Email content</label>
+          <textarea
+            id="email-text"
+            name="text"
+            rows="8"
+            placeholder="Example: Congratulations! You've won a free iPhone. Click here to claim your prize now..."
+            maxlength="5000"
+            required
+          ></textarea>
+          <div class="form-footer">
+            <span id="char-count" class="char-count">0 / 5000</span>
+            <div class="actions">
+              <button type="button" id="clear-btn" class="btn btn-secondary">Clear</button>
+              <button type="submit" id="submit-btn" class="btn btn-primary">
+                <span class="btn-text">Classify Email</span>
+                <span class="spinner hidden" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="result-section" class="card result-card hidden" aria-live="polite">
+        <div class="card-header">
+          <h2>Classification Result</h2>
+        </div>
+        <div id="result-content" class="result-content"></div>
+      </section>
+
+      <section class="card examples-card">
+        <div class="card-header">
+          <h2>Try Examples</h2>
+          <p>Click to load sample emails into the analyzer.</p>
+        </div>
+        <div class="examples">
+          <button type="button" class="example-btn" data-text="Win a free phone now! Limited time offer. Click here to claim your prize.">
+            <span class="example-tag spam">Spam</span>
+            Free phone offer
+          </button>
+          <button type="button" class="example-btn" data-text="Hi team, please see the attached agenda for tomorrow's meeting at 10am in conference room B.">
+            <span class="example-tag ham">Ham</span>
+            Meeting agenda
+          </button>
+          <button type="button" class="example-btn" data-text="URGENT: Your account will be suspended. Verify your credentials immediately at http://fake-bank.com">
+            <span class="example-tag spam">Spam</span>
+            Phishing attempt
+          </button>
+          <button type="button" class="example-btn" data-text="Thanks for your order #48291. Your package will arrive by Friday. Track it in your account dashboard.">
+            <span class="example-tag ham">Ham</span>
+            Order confirmation
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built with Flask · Naive Bayes · TF-IDF Vectorization</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
